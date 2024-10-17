@@ -32,9 +32,9 @@ public class Player {
         ArrayList<Item> itemsInRoom = currentRoom.getRoomInvList();
 
         if(itemsInRoom.isEmpty()) {
-            desc.append("\nThere isn't any pickable items.");
+            desc.append("\nThere isn't any pickable items in this room (").append(getCurrentRoom().getName()).append(").");
         }else{
-            desc.append("\nItems in the room:");
+            desc.append("\nItems in the current (").append(getCurrentRoom().getName()).append(") room:");
             for (Item item : itemsInRoom) {
                 desc.append("\n- ").append(item.getLongName());
             }
@@ -42,7 +42,8 @@ public class Player {
     }
 
     public void takeItem(String itemName){
-        Item itemToTake = findItem(itemName,currentRoom.getRoomInvList());
+//        Item itemToTake = findItem(itemName,currentRoom.getRoomInvList());
+        Item itemToTake = currentRoom.getItemByName(itemName);
         if (itemToTake != null) {
             currentRoom.removeItem(itemToTake);
             playerInv.add(itemToTake);
@@ -73,7 +74,7 @@ public class Player {
             }
         }
     }
-
+/*
     private String listItems(ArrayList<Item> items) {
         StringBuilder itemList = new StringBuilder();
         for(Item item : items) {
@@ -83,7 +84,7 @@ public class Player {
         }
         return itemList.toString();
     }
-
+*/
     private Item findItem(String name, ArrayList<Item> items) {
         for(Item item : items) {
             if(item.getShortName().equalsIgnoreCase(name)||item.getLongName().equalsIgnoreCase(name)) {
@@ -117,8 +118,8 @@ public class Player {
                 case "go west", "west", "w": move("west"); break;
                 case "help", "h": ui.showHelpMes(); break;
                 case "inventory", "invent", "inv": showInv(); break;
-                case "look", "l": ui.dispMes("Looking around: "+getCurrentRoom().getCurrentRoomDesc()); break;
-                case "take":
+                case "look", "l": ui.dispMes("Looking around: "+getCurrentRoomDesc()); break;
+                case "take", "t":
                     if (inputs.length > 1) {
                         takeItem(inputs[1]);
                     }else{

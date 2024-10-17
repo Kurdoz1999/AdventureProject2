@@ -24,8 +24,18 @@ public class Map {
         rooms[7].setRoom(rooms[4], null, rooms[8], rooms[6]);
         rooms[8].setRoom(rooms[5], null, null, rooms[7]);
 
-        Item ball = new Item("tennis ball","ball");
+        Item ball = new Item("Tennis ball","Ball");
         rooms[0].addItem(ball);
+        Item notebook = new Item("Old notebook","Notebook");
+        rooms[2].addItem(notebook);
+        Item key = new Item("A massive key","Key");
+        rooms[3].addItem(key);
+        Item coin = new Item("A shiny gold coin","Coin");
+        rooms[4].addItem(coin);
+        Item lantern = new Item("A rusted lantern","Lantern");
+        rooms[6].addItem(lantern);
+        Item bottle = new Item("A water bottle","Bottle");
+        rooms[8].addItem(bottle);
     }
 
     public Room getStartRoom() {

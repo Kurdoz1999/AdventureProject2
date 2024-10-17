@@ -11,6 +11,7 @@ public class Adventure {
 
     public void start() {
         ui.showWelcMes();
+        ui.dispMes(player.getCurrentRoomDesc());
         boolean isRunning = true;
         while(isRunning) {
             String input = player.getInput();

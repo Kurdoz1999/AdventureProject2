@@ -18,7 +18,7 @@ public class UI {
         System.out.println(message);
     }
     public void showWelcMes() {
-        System.out.println("Welcome to the Adventure Game :D\nChoose a direction or ask for help:");
+        System.out.print("Welcome to the Adventure Game :D");
     }
     public void showHelpMes() {
         dispMes("Possibilities:" +

@@ -32,6 +32,14 @@ public class Room {
             default -> null;
         };
     }
+    public Item getItemByName(String name) {
+        for(Item item : roomInv) {
+            if(item.getLongName().equalsIgnoreCase(name));
+            return item;
+        }
+        return null;
+    }
+
     public ArrayList<Item> getRoomInvList() {return roomInv;}
     public String getName() {return name;}
     public String getCurrentRoomDesc() {return desc;}
