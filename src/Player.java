@@ -21,12 +21,24 @@ public class Player {
         if (nextRoom != null) {
             currentRoom = nextRoom;
             ui.dispMes("You move "+direction+".");
-            ui.dispMes(getCurrentRoom().getDesc());
-            ui.dispMes("Items in this room: "+listItems(currentRoom.getRoomInvList()));
-            map.moveNextRoom(currentRoom);
+            ui.dispMes(getCurrentRoomDesc());
         }else{
             ui.dispMes("You can't go that way.");
         }
+    }
+
+    public String getCurrentRoomDesc() {
+        StringBuilder desc = new StringBuilder(currentRoom.getCurrentRoomDesc());
+        ArrayList<Item> itemsInRoom = currentRoom.getRoomInvList();
+
+        if(itemsInRoom.isEmpty()) {
+            desc.append("\nThere isn't any pickable items.");
+        }else{
+            desc.append("\nItems in the room:");
+            for (Item item : itemsInRoom) {
+                desc.append("\n- ").append(item.getLongName());
+            }
+        }return desc.toString();
     }
 
     public void takeItem(String itemName){
@@ -81,37 +93,41 @@ public class Player {
         return null;
     }
 
-    public Object handleUI(String UI) {
+    public void handleUI(String UI) {
         String[] inputs = UI.split(" ");
         String command = inputs[0];
 
             switch (command) {
-                case "exit" -> ui.showExitMes();
-                case "drop" -> {
+                case "exit": ui.showExitMes();
+                case "drop":
                     if (inputs.length > 1) {
                         dropItem(inputs[1]);
                     }else{
                         ui.dispMes("What do you want to drop?");
-                    }
-                }
-                case "go north", "north", "n" -> move("north");
-                case "go south", "south", "s" -> move("south");
-                case "go east", "east", "e" -> move("east");
-                case "go west", "west", "w" -> move("west");
-                case "help", "h" -> ui.showHelpMes();
-                case "inventory", "invent", "inv" -> showInv();
-                case "look", "l" -> ui.dispMes("Looking around: "+getCurrentRoom().getDesc());
-                case "take" -> {
+                    } break;
+                case "go":
+                    if (inputs.length > 1) {
+                        move(inputs[1]);
+                    } else {
+                        ui.dispMes("Where do you want to go?");
+                    } break;
+                case "go north", "north", "n": move("north"); break;
+                case "go south", "south", "s": move("south"); break;
+                case "go east", "east", "e": move("east"); break;
+                case "go west", "west", "w": move("west"); break;
+                case "help", "h": ui.showHelpMes(); break;
+                case "inventory", "invent", "inv": showInv(); break;
+                case "look", "l": ui.dispMes("Looking around: "+getCurrentRoom().getCurrentRoomDesc()); break;
+                case "take":
                     if (inputs.length > 1) {
                         takeItem(inputs[1]);
                     }else{
                         ui.dispMes("What do you want to take?");
-                    }
-                }
-                default -> ui.showDefMes();
+                    } break;
+                default: ui.showDefMes(); break;
             }
-        return null;
     }
+
     public void removeItem(Item item) {
         playerInv.remove(item);
     }
@@ -125,6 +141,6 @@ public class Player {
     }
 
     protected String getInput() {
-        return ui.getUI("Type your command: ").toLowerCase();
+        return ui.getUI().toLowerCase();
     }
 }

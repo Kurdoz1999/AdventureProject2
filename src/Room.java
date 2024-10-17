@@ -34,6 +34,7 @@ public class Room {
     }
     public ArrayList<Item> getRoomInvList() {return roomInv;}
     public String getName() {return name;}
-    public String getDesc() {return desc;}
+    public String getCurrentRoomDesc() {return desc;}
     public void setDesc(String desc) {this.desc = desc;}
+
 }

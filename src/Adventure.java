@@ -14,7 +14,7 @@ public class Adventure {
         boolean isRunning = true;
         while(isRunning) {
             String input = player.getInput();
-            if (input.equals(player.handleUI("exit")) || input.equals("quit")) {
+            if (input.equals("exit") || input.equals("quit")) {
                 player.getDispMes("Thanks for playing. Goodbye");
                 isRunning = false;
             }else{
