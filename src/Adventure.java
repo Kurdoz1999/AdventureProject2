@@ -1,20 +1,25 @@
 public class Adventure {
-    private Room currentRoom;
+    private UI ui;
     private Map map;
     private Player player;
-    private UI ui;
 
     public Adventure() {
-        this.map = new Map();
-        this.player = new Player(map.getStartRoom());
         this.ui = new UI();
+        this.map = new Map();
+        this.player = new Player(map.getStartRoom(), ui);
     }
 
     public void start() {
         ui.showWelcMes();
-        player.handleUI();
+        boolean isRunning = true;
+        while(isRunning) {
+            String input = player.getInput();
+            if (input.equals(player.handleUI("exit")) || input.equals("quit")) {
+                player.getDispMes("Thanks for playing. Goodbye");
+                isRunning = false;
+            }else{
+                player.handleUI(input);
+            }
+        }
     }
-
-    public Room getCurrentRoom() {return currentRoom;}
-    public void setCurrentRoom(Room currentRoom) {this.currentRoom = currentRoom;}
 }

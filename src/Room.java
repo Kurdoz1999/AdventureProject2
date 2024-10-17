@@ -1,12 +1,22 @@
-public class Room {
+import java.util.ArrayList;
 
+public class Room {
     private String name, desc;
     private Room north, south, east, west;
+    private ArrayList<Item> roomInv;
 
     Room (String name, String desc) {
         this.name = name;
-        this.desc = desc;}
+        this.desc = desc;
+        this.roomInv = new ArrayList<>();
+    }
 
+    public void removeItem(Item item) {
+        roomInv.remove(item);
+    }
+    public void addItem(Item item) {
+        roomInv.add(item);
+    }
     public void setRoom(Room north, Room south, Room east, Room west) {
         this.north = north;
         this.south = south;
@@ -22,6 +32,7 @@ public class Room {
             default -> null;
         };
     }
+    public ArrayList<Item> getRoomInvList() {return roomInv;}
     public String getName() {return name;}
     public String getDesc() {return desc;}
     public void setDesc(String desc) {this.desc = desc;}
