@@ -24,17 +24,17 @@ public class Map {
         rooms[7].setRoom(rooms[4], null, rooms[8], rooms[6]);
         rooms[8].setRoom(rooms[5], null, null, rooms[7]);
 
-        Item ball = new Item("Tennis ball","Ball");
+        Item ball = new Item("tennis ball","ball");
         rooms[0].addItem(ball);
-        Item notebook = new Item("Old notebook","Notebook");
+        Item notebook = new Item("old notebook","notebook");
         rooms[2].addItem(notebook);
-        Item key = new Item("A massive key","Key");
+        Item key = new Item("a massive key","key");
         rooms[3].addItem(key);
-        Item coin = new Item("A shiny gold coin","Coin");
+        Item coin = new Item("a shiny gold coin","coin");
         rooms[4].addItem(coin);
-        Item lantern = new Item("A rusted lantern","Lantern");
+        Item lantern = new Item("a rusted lantern","lantern");
         rooms[6].addItem(lantern);
-        Item bottle = new Item("A water bottle","Bottle");
+        Item bottle = new Item("a water bottle","bottle");
         rooms[8].addItem(bottle);
     }
 

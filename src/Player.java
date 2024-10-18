@@ -42,11 +42,10 @@ public class Player {
     }
 
     public void takeItem(String itemName){
-//        Item itemToTake = findItem(itemName,currentRoom.getRoomInvList());
         Item itemToTake = currentRoom.getItemByName(itemName);
         if (itemToTake != null) {
-            currentRoom.removeItem(itemToTake);
             playerInv.add(itemToTake);
+            currentRoom.removeItem(itemToTake);
             ui.dispMes("You take the "+itemToTake.getLongName()+".");
         }else{
             ui.dispMes("There is nothing like "+itemName+" in room "+getCurrentRoom().getName());
@@ -105,12 +104,6 @@ public class Player {
                         dropItem(inputs[1]);
                     }else{
                         ui.dispMes("What do you want to drop?");
-                    } break;
-                case "go":
-                    if (inputs.length > 1) {
-                        move(inputs[1]);
-                    } else {
-                        ui.dispMes("Where do you want to go?");
                     } break;
                 case "go north", "north", "n": move("north"); break;
                 case "go south", "south", "s": move("south"); break;

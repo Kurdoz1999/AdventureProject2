@@ -34,8 +34,9 @@ public class Room {
     }
     public Item getItemByName(String name) {
         for(Item item : roomInv) {
-            if(item.getLongName().equalsIgnoreCase(name));
-            return item;
+            if(item.getLongName().equalsIgnoreCase(name)) {
+                return item;
+            }
         }
         return null;
     }
