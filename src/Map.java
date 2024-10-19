@@ -1,6 +1,5 @@
 public class Map {
     private Room[] rooms;
-    private Room currentRoom;
 
     public Map() {
         rooms = new Room[9];
@@ -36,6 +35,17 @@ public class Map {
         rooms[6].addItem(lantern);
         Item bottle = new Item("a water bottle","bottle");
         rooms[8].addItem(bottle);
+
+        Food rottenMeat = new Food("A piece of rotten meat", "meat", -20);
+        rooms[1].addItem(rottenMeat);
+        Food apple = new Food("A delicious apple", "apple", 10);
+        rooms[8].addItem(apple);
+        Food fries = new Food("A portion of fries", "fries", -15);
+        rooms[3].addItem(fries);
+        Food salad = new Food("A healthy green salad", "salad", 20);
+        rooms[4].addItem(salad);
+        Food bread = new Food("A loaf of fresh bread", "bread", 15);
+        rooms[7].addItem(bread);
     }
 
     public Room getStartRoom() {

@@ -1,15 +1,16 @@
 import java.util.ArrayList;
 
 public class Player {
-    private Room currentRoom;
+    private int hp;
     private UI ui;
-    private Map map;
+    private Room currentRoom;
     private ArrayList<Item> playerInv;
 
     public Player(Room startingRoom, UI ui) {
         this.currentRoom = startingRoom;
         this.playerInv = new ArrayList<>();
         this.ui = new UI();
+        this.hp = 50;
     }
 
     public Room getCurrentRoom() {
@@ -109,6 +110,13 @@ public class Player {
                 case "go south", "south", "s": move("south"); break;
                 case "go east", "east", "e": move("east"); break;
                 case "go west", "west", "w": move("west"); break;
+                case "eat":
+                    if (inputs.length > 1) {
+                        eatItem(inputs[1]);
+                    }else{
+                        ui.dispMes("What do you want to take?");
+                    } break;
+                case "healthpoints", "health", "hp": showHp(); break;
                 case "help", "h": ui.showHelpMes(); break;
                 case "inventory", "invent", "inv": showInv(); break;
                 case "look", "l": ui.dispMes("Looking around: "+getCurrentRoomDesc()); break;
@@ -120,6 +128,47 @@ public class Player {
                     } break;
                 default: ui.showDefMes(); break;
             }
+    }
+
+    public void eatItem(String itemName) {
+        Item itemToEat = findItem(itemName, playerInv);
+        // If not found in inventory, check the current room
+        if (itemToEat == null) {
+            itemToEat = currentRoom.getItemByName(itemName);
+            if (itemToEat != null) {
+                currentRoom.removeItem(itemToEat);
+            }
+        }
+        // If the item is found, check if it is food
+        if (itemToEat instanceof Food) {
+            Food food = (Food) itemToEat;
+            adjustHp(food.getHp());
+            ui.dispMes("You ate the "+food.getLongName()+". HP adjusted by "+food.getHp());
+            removeItem(itemToEat);
+        } else if (itemToEat != null) {
+            ui.dispMes("You can't eat the "+itemToEat.getLongName()+".");
+        } else {
+            ui.dispMes("There is no "+itemName+" to eat.");
+        }
+    }
+    public int getHp(){
+        return hp;
+    }
+    public void adjustHp(int healthPoints) {
+        this.hp += healthPoints;
+        if (this.hp > 100)
+            {this.hp = 100;}
+        if (this.hp < 0)
+            {this.hp = 0;}
+    }
+    public void showHp() {
+        ui.dispMes("HP: " + hp + " - " + getHpDesc());
+    }
+    private String getHpDesc() {
+        if (hp >= 70) return "You are in great health!";
+        if (hp >= 50) return "You are in good health, but avoid fighting right now.";
+        if (hp >= 20) return "You are in poor health. Eat something or rest!";
+        return "You are critically injured!";
     }
 
     public void removeItem(Item item) {
