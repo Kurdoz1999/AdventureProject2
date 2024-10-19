@@ -54,9 +54,15 @@ public class Map {
         //MeleeWeapons:
         Item sword = new MeleeWeapon("iron sword", "sword");
         rooms[0].addItem(sword);
+        Item axe = new MeleeWeapon("battle axe", "axe");
+        rooms[4].addItem(axe);
         //RangedWeapons:
         Item gun = new RangedWeapon("pistol", "gun", 3);
-        rooms[2].addItem(gun);
+        rooms[5].addItem(gun);
+        Item slingshot = new RangedWeapon("slingshot", "slingshot", 10);
+        rooms[2].addItem(slingshot);
+        Item crossbow = new RangedWeapon("crossbow", "crossbow", 4);
+        rooms[8].addItem(crossbow);
     }
 
     public Room getStartRoom() {

@@ -5,7 +5,7 @@ public class MeleeWeapon extends Weapon {
 
     @Override
     public boolean canUse() {
-        return true; // Nærkampsvåben kan bruges uendeligt
+        return true;
     }
 
     @Override
