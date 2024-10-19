@@ -51,8 +51,4 @@ public class Map {
     public Room getStartRoom() {
         return rooms[0];
     }
-
-    public void moveNextRoom(Room nextRoom) {
-        this.currentRoom = nextRoom;
-    }
 }
