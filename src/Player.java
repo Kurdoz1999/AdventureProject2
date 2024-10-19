@@ -5,6 +5,7 @@ public class Player {
     private UI ui;
     private Room currentRoom;
     private ArrayList<Item> playerInv;
+    private Weapon equippedWeapon;
 
     public Player(Room startingRoom, UI ui) {
         this.currentRoom = startingRoom;
@@ -72,6 +73,11 @@ public class Player {
             for(Item item : playerInv) {
                 ui.dispMes("\n"+item.getLongName());
             }
+            if (equippedWeapon != null) {
+                ui.dispMes("Equipped weapon: " + equippedWeapon.getLongName());
+            } else {
+                ui.dispMes("No weapon is equipped.");
+            }
         }
     }
 /*
@@ -99,6 +105,14 @@ public class Player {
         String command = inputs[0];
 
             switch (command) {
+                case "attack": attack(); break;
+                case "equip":
+                    if (inputs.length > 1) {
+                        equipWeapon(inputs[1]);
+                    } else {
+                        ui.dispMes("What do you want to equip?");
+                    }
+                    break;
                 case "exit": ui.showExitMes();
                 case "drop":
                     if (inputs.length > 1) {
@@ -169,6 +183,27 @@ public class Player {
         if (hp >= 50) return "You are in good health, but avoid fighting right now.";
         if (hp >= 20) return "You are in poor health. Eat something or rest!";
         return "You are critically injured!";
+    }
+
+    public void equipWeapon(String weaponName) {
+        Item itemToEquip = findItem(weaponName, playerInv);
+        if (itemToEquip == null) {
+            ui.dispMes("You do not have a " + weaponName + " in your inventory.");
+        } else if (!(itemToEquip instanceof Weapon)) {
+            ui.dispMes(itemToEquip.getLongName() + " is not a weapon.");
+        } else {
+            equippedWeapon = (Weapon) itemToEquip;
+            ui.dispMes("You equipped the " + equippedWeapon.getLongName() + ".");
+        }
+    }
+    public void attack() {
+        if (equippedWeapon == null) {
+            ui.dispMes("You don't have any weapon equipped.");
+        } else if (equippedWeapon.canUse()) {
+            equippedWeapon.useWeapon();
+        } else {
+            ui.dispMes("Your " + equippedWeapon.getLongName() + " cannot be used anymore.");
+        }
     }
 
     public void removeItem(Item item) {

@@ -2,6 +2,7 @@ public class Map {
     private Room[] rooms;
 
     public Map() {
+        //Rooms:
         rooms = new Room[9];
         rooms[0] = new Room("Room1","");
         rooms[1] = new Room("Room2","");
@@ -13,6 +14,7 @@ public class Map {
         rooms[7] = new Room("Room8","");
         rooms[8] = new Room("Room9","");
 
+        //Navigation in the map:
         rooms[0].setRoom(null, rooms[3], rooms[1], null);
         rooms[1].setRoom(null, null, rooms[2], rooms[0]);
         rooms[2].setRoom(null, rooms[5], null, rooms[1]);
@@ -23,6 +25,7 @@ public class Map {
         rooms[7].setRoom(rooms[4], null, rooms[8], rooms[6]);
         rooms[8].setRoom(rooms[5], null, null, rooms[7]);
 
+        //Items:
         Item ball = new Item("tennis ball","ball");
         rooms[0].addItem(ball);
         Item notebook = new Item("old notebook","notebook");
@@ -36,6 +39,7 @@ public class Map {
         Item bottle = new Item("a water bottle","bottle");
         rooms[8].addItem(bottle);
 
+        //Food items:
         Food rottenMeat = new Food("A piece of rotten meat", "meat", -20);
         rooms[1].addItem(rottenMeat);
         Food apple = new Food("A delicious apple", "apple", 10);
@@ -46,6 +50,13 @@ public class Map {
         rooms[4].addItem(salad);
         Food bread = new Food("A loaf of fresh bread", "bread", 15);
         rooms[7].addItem(bread);
+
+        //MeleeWeapons:
+        Item sword = new MeleeWeapon("iron sword", "sword");
+        rooms[0].addItem(sword);
+        //RangedWeapons:
+        Item gun = new RangedWeapon("pistol", "gun", 3);
+        rooms[2].addItem(gun);
     }
 
     public Room getStartRoom() {
