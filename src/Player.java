@@ -80,17 +80,7 @@ public class Player {
             }
         }
     }
-/*
-    private String listItems(ArrayList<Item> items) {
-        StringBuilder itemList = new StringBuilder();
-        for(Item item : items) {
-            if(itemList.length() > 0) {
-                itemList.append("\n");
-            } itemList.append(item.getLongName());
-        }
-        return itemList.toString();
-    }
-*/
+
     private Item findItem(String name, ArrayList<Item> items) {
         for(Item item : items) {
             if(item.getShortName().equalsIgnoreCase(name)||item.getLongName().equalsIgnoreCase(name)) {
@@ -146,14 +136,12 @@ public class Player {
 
     public void eatItem(String itemName) {
         Item itemToEat = findItem(itemName, playerInv);
-        // If not found in inventory, check the current room
         if (itemToEat == null) {
             itemToEat = currentRoom.getItemByName(itemName);
             if (itemToEat != null) {
                 currentRoom.removeItem(itemToEat);
             }
         }
-        // If the item is found, check if it is food
         if (itemToEat instanceof Food) {
             Food food = (Food) itemToEat;
             adjustHp(food.getHp());
@@ -206,11 +194,51 @@ public class Player {
         }
     }
 
-    public void removeItem(Item item) {
-        playerInv.remove(item);
+    public void attack(String enemyName) {
+        ArrayList<Enemy> enemiesInRoom = currentRoom.getEnemies();
+        if (enemiesInRoom.isEmpty()) {
+            ui.dispMes("There are no enemies to attack.");
+            return;
+        }
+
+        Enemy enemyToAttack = null;
+        if (enemyName != null && !enemyName.isEmpty()) {
+            enemyToAttack = currentRoom.getEnemyByName(enemyName);
+        } else {
+            enemyToAttack = enemiesInRoom.get(0);
+        }
+
+        if (enemyToAttack == null) {
+            ui.dispMes("There is no enemy by the name " + enemyName + " in this room.");
+            return;
+        }
+
+        if (equippedWeapon == null) {
+            ui.dispMes("You don't have any weapon equipped.");
+        } else if (equippedWeapon.canUse()) {
+            equippedWeapon.useWeapon();
+            enemyToAttack.hit(equippedWeapon.getDamage());
+
+            if (!enemyToAttack.isAlive()) {
+                enemyToAttack.dropWeapon(currentRoom);
+                currentRoom.removeEnemy(enemyToAttack);
+                ui.dispMes("You have defeated " + enemyToAttack.getName() + ".");
+            } else {
+                enemyToAttack.attack(this);
+                if (this.hp <= 0) {
+                    ui.dispMes("You have been defeated!");
+                }
+            }
+        } else {
+            ui.dispMes("Your " + equippedWeapon.getLongName() + " cannot be used anymore.");
+        }
     }
+
     public void addItem(Item item) {
         playerInv.add(item);
+    }
+    public void removeItem(Item item) {
+        playerInv.remove(item);
     }
     public ArrayList<Item> getPlayerInvList() {return playerInv;}
 

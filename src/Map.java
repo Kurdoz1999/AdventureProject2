@@ -52,17 +52,28 @@ public class Map {
         rooms[7].addItem(bread);
 
         //MeleeWeapons:
-        Item sword = new MeleeWeapon("iron sword", "sword");
+        Item sword = new MeleeWeapon("iron sword", "sword", 10);
         rooms[0].addItem(sword);
-        Item axe = new MeleeWeapon("battle axe", "axe");
+        Item axe = new MeleeWeapon("battle axe", "axe", 15);
         rooms[4].addItem(axe);
         //RangedWeapons:
-        Item gun = new RangedWeapon("pistol", "gun", 3);
+        Item gun = new RangedWeapon("pistol", "gun", 20, 3);
         rooms[5].addItem(gun);
-        Item slingshot = new RangedWeapon("slingshot", "slingshot", 10);
+        Item slingshot = new RangedWeapon("slingshot", "slingshot", 5, 10);
         rooms[2].addItem(slingshot);
-        Item crossbow = new RangedWeapon("crossbow", "crossbow", 4);
+        Item crossbow = new RangedWeapon("crossbow", "crossbow", 12, 4);
         rooms[8].addItem(crossbow);
+
+        //Enemies:
+        Weapon claw = new MeleeWeapon("Sharp Claws", "claws", 8);
+        Enemy rat = new Enemy("Giant Rat", "A large and vicious rodent.", 30, claw);
+        rooms[0].addEnemy(rat);
+        Weapon bite = new MeleeWeapon("Sharp Teeth", "teeth", 10);
+        Enemy wolf = new Enemy("Hungry Wolf", "A ferocious wolf with sharp teeth.", 40, bite);
+        rooms[1].addEnemy(wolf);
+        Weapon fireball = new RangedWeapon("Fireball", "fireball", 15, 3);
+        Enemy dragon = new Enemy("Fire Dragon", "A fearsome dragon breathing fire.", 100, fireball);
+        rooms[8].addEnemy(dragon);
     }
 
     public Room getStartRoom() {

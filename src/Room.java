@@ -4,11 +4,13 @@ public class Room {
     private String name, desc;
     private Room north, south, east, west;
     private ArrayList<Item> roomInv;
+    private ArrayList<Enemy> enemies;
 
     Room (String name, String desc) {
         this.name = name;
         this.desc = desc;
         this.roomInv = new ArrayList<>();
+        this.enemies = new ArrayList<>();
     }
 
     public void removeItem(Item item) {
@@ -41,9 +43,23 @@ public class Room {
         return null;
     }
 
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+    public ArrayList<Enemy> getEnemies() {return enemies;}
+    public Enemy getEnemyByName(String name) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getName().equalsIgnoreCase(name)) {
+                return enemy;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Item> getRoomInvList() {return roomInv;}
     public String getName() {return name;}
     public String getCurrentRoomDesc() {return desc;}
-    public void setDesc(String desc) {this.desc = desc;}
-
 }
