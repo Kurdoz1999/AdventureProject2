@@ -2,17 +2,17 @@ public class Map {
     private Room[] rooms;
 
     public Map() {
-        //Rooms:
+        //Rooms and their descriptions:
         rooms = new Room[9];
-        rooms[0] = new Room("Room1","");
-        rooms[1] = new Room("Room2","");
-        rooms[2] = new Room("Room3","");
-        rooms[3] = new Room("Room4","");
-        rooms[4] = new Room("Room5","");
-        rooms[5] = new Room("Room6","");
-        rooms[6] = new Room("Room7","");
-        rooms[7] = new Room("Room8","");
-        rooms[8] = new Room("Room9","");
+        rooms[0] = new Room("Room1", "A small, dim room with a single window and a broken chair. The air is cold.");
+        rooms[1] = new Room("Room2", "A dusty hallway with peeling wallpaper and faint footsteps echoing.");
+        rooms[2] = new Room("Room3", "A bright, sunlit room with an ornate rug and a fireplace. There’s a strange silence.");
+        rooms[3] = new Room("Room4", "A narrow corridor with flickering lights and distant whispers.");
+        rooms[4] = new Room("Room5", "A grand hall with high ceilings, chandeliers swaying slightly.");
+        rooms[5] = new Room("Room6", "A damp cellar with old crates and a faint dripping sound. The smell of mildew fills the air.");
+        rooms[6] = new Room("Room7", "An abandoned bedroom with tattered curtains and a bed covered in dust.");
+        rooms[7] = new Room("Room8", "A large, empty room with cracked mirrors on the walls and a broken piano in the corner.");
+        rooms[8] = new Room("Room9", "A quiet, eerie space with cobweb-covered bookshelves and a single chair in the center.");
 
         //Navigation in the map:
         rooms[0].setRoom(null, rooms[3], rooms[1], null);

@@ -1,6 +1,6 @@
 public class Item {
-    private String longName;
-    private String shortName;
+    private final String longName;
+    private final String shortName;
 
     public Item(String longName, String shortName) {
         this.longName = longName;
